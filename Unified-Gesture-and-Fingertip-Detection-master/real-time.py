@@ -1,8 +1,11 @@
 import cv2
 import numpy as np
+import asyncio
 from cursor_func import cursorControl
 from unified_detector import Fingertips
 from hand_detector.detector import SOLO, YOLO
+
+status = False
 
 hand_detection_method = 'yolo'
 
@@ -18,44 +21,52 @@ fingertips = Fingertips(weights='weights/classes8.h5')
 cam = cv2.VideoCapture(0)
 print('Unified Gesture & Fingertips Detection')
 
-while True:
-    ret, image = cam.read()
+async def main():
+    while True:
+        ret, image = cam.read()
 
-    if ret is False:
-        break
+        if ret is False:
+            break
 
-    # hand detection
-    tl, br = hand.detect(image=image)
-    if tl and br is not None:
-        cropped_image = image[tl[1]:br[1], tl[0]: br[0]]
-        height, width, _ = cropped_image.shape
+        # hand detection
+        tl, br = hand.detect(image=image)
+        if tl and br is not None:
+            cropped_image = image[tl[1]:br[1], tl[0]: br[0]]
+            height, width, _ = cropped_image.shape
 
-        # gesture classification and fingertips regression
-        prob, pos = fingertips.classify(image=cropped_image)
-        pos = np.mean(pos, 0)
+            # gesture classification and fingertips regression
+            prob, pos = fingertips.classify(image=cropped_image)
+            pos = np.mean(pos, 0)
 
-        # post-processing
-        prob = np.asarray([(p >= 0.5) * 1.0 for p in prob])
-        for i in range(0, len(pos), 2):
-            pos[i] = pos[i] * width + tl[0]
-            pos[i + 1] = pos[i + 1] * height + tl[1]
-        
-        cursorControl(prob, pos)
-        # drawing
-        index = 0
-        color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
-        image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
-        for c, p in enumerate(prob):
-            if p > 0.5:
-                image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
-                                   color=color[c], thickness=-2)
-            index = index + 2
+            # post-processing
+            prob = np.asarray([(p >= 0.5) * 1.0 for p in prob])
+            for i in range(0, len(pos), 2):
+                pos[i] = pos[i] * width + tl[0]
+                pos[i + 1] = pos[i + 1] * height + tl[1]
+            
+            status = await cursorControl(prob, pos)
+            if status:
+                break
 
-    if cv2.waitKey(1) & 0xff == 27:
-        break
+            # drawing
+            index = 0
+            color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
+            image = cv2.rectangle(image, (tl[0], tl[1]), (br[0], br[1]), (235, 26, 158), 2)
+            for c, p in enumerate(prob):
+                if p > 0.5:
+                    image = cv2.circle(image, (int(pos[index]), int(pos[index + 1])), radius=12,
+                                    color=color[c], thickness=-2)
+                index = index + 2
 
-    # display image
-    cv2.imshow('Unified Gesture & Fingertips Detection', image)
+        if cv2.waitKey(1) & 0xff == 27:
+            break
 
-cam.release()
-cv2.destroyAllWindows()
+        # display image
+        cv2.imshow('Unified Gesture & Fingertips Detection', image)
+
+    cam.release()
+    cv2.destroyAllWindows()
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
+loop.close()
