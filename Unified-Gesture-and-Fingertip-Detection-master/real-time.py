@@ -44,9 +44,9 @@ async def main():
                 pos[i] = pos[i] * width + tl[0]
                 pos[i + 1] = pos[i + 1] * height + tl[1]
             
-            status = await cursorControl(prob, pos)
+            status = await cursorControl(image, prob, pos)
             if status:
-                break
+                break # kills the program
 
             # drawing
             index = 0
@@ -60,7 +60,7 @@ async def main():
 
         if cv2.waitKey(1) & 0xff == 27:
             break
-
+        
         # display image
         cv2.imshow('Unified Gesture & Fingertips Detection', image)
 

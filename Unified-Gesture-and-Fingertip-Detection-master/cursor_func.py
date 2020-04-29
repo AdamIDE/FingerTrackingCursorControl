@@ -3,7 +3,10 @@ import pyautogui
 
 _width, _height = pyautogui.size()
 
-async def cursorControl(prob, pos):
+async def cursorControl(image, prob, pos):
+    # ratioWidth = _width/image.shape[1]
+    # ratioHeight = _height/image.shape[0]
+    # print(ratioWidth, ratioWidth)
     
     # prob = array of which finger is visible to the camera
     # pos = array of the x,y co-ordinates of each finger 
@@ -27,4 +30,4 @@ async def cursorControl(prob, pos):
 
     elif prob[1] == 1:
 
-        pyautogui.moveTo(_width-3.5*pos[0],3.5*pos[1])          # move cursor to positionw (requires index finger to trigger)
+        pyautogui.moveTo(_width-(4.2*pos[0]),4.2*pos[1])          # move cursor to positionw (requires index finger to trigger)
