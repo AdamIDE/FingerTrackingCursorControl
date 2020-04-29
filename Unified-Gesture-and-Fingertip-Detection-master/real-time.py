@@ -52,6 +52,7 @@ while True:
             index = index + 2
 
     if cv2.waitKey(1) & 0xff == 27:
+        break
 
     # display image
     cv2.imshow('Unified Gesture & Fingertips Detection', image)
