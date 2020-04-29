@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import pyautogui
+from cursor_func import cursorControl
 from unified_detector import Fingertips
 from hand_detector.detector import SOLO, YOLO
 
@@ -39,15 +39,8 @@ while True:
         for i in range(0, len(pos), 2):
             pos[i] = pos[i] * width + tl[0]
             pos[i + 1] = pos[i + 1] * height + tl[1]
-
-        if prob[1] == 1 and prob[2] == 1 and prob[3] == 1:
-            pyautogui.click(button='right')
-        elif prob[1] == 1 and prob[2] == 1:
-            pyautogui.click(button='left')
-        elif prob[1] == 1:
-            pyautogui.moveTo(3*pos[0],3*pos[1])
         
-        
+        cursorControl(prob, pos)
         # drawing
         index = 0
         color = [(15, 15, 240), (15, 240, 155), (240, 155, 15), (240, 15, 155), (240, 15, 240)]
@@ -59,7 +52,6 @@ while True:
             index = index + 2
 
     if cv2.waitKey(1) & 0xff == 27:
-        break
 
     # display image
     cv2.imshow('Unified Gesture & Fingertips Detection', image)
