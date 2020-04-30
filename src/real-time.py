@@ -10,9 +10,9 @@ status = False
 hand_detection_method = 'yolo'
 
 if hand_detection_method is 'solo':
-    hand = SOLO(weights='weights/solo.h5', threshold=0.8)
+    hand = SOLO(weights='weights/solo.h5', threshold=0.6)
 elif hand_detection_method is 'yolo':
-    hand = YOLO(weights='weights/yolo.h5', threshold=0.8)
+    hand = YOLO(weights='weights/yolo.h5', threshold=0.6)
 else:
     assert False, "'" + hand_detection_method + "' hand detection does not exist. use either 'solo' or 'yolo' as hand detection method"
 

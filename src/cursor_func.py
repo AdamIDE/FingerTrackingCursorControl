@@ -11,9 +11,11 @@ async def cursorControl(image, prob, pos):
     # prob = array of which finger is visible to the camera
     # pos = array of the x,y co-ordinates of each finger 
     if prob[0] == 1 and prob[1] == 1 and prob[2] == 1 and prob[3] == 1 and prob[4] == 1:
+        
         return True                                             # Exits (requires all 5 fingers)
 
     elif prob[1] == 1 and prob[2] == 1 and prob[3] == 1 and prob[4] == 1:
+
         pyautogui.scroll(-30)                                   # Scroll up (requires middle, ring fingers to trigger)
 
     elif prob[1] == 1 and prob[4] == 1:
