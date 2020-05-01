@@ -33,12 +33,12 @@ The following section shows the various different cursor controls that can be tr
 
 | Cursor Action |     Thumb     |      Index     |     Middle     |      Ring       | Pinky |
 | ------------- |:-------------:| :-------------:| :-------------:| :-------------: | -----:|
-|      Move     |     -     |     !      |     -     |      -       | - |
-|  Left Click   |     !     |      -     |     -     |      -       | ! |
-|  Right Click  |     -     |      !     |     -     |      -       | ! |
-|   Scroll Up   |     -     |      !     |     !     |      -       | - |
-|  Scroll Down  |     -     |      !     |     !     |      !       | ! |
-|      Exit     |     !     |      !     |     !     |      !       | ! |
+|      Move     |     -     |     ✔️      |     -     |      -       | - |
+|  Left Click   |     ✔️     |      -     |     -     |      -       | ✔️ |
+|  Right Click  |     -     |      ✔️     |     -     |      -       | ✔️ |
+|   Scroll Up   |     -     |      ✔️     |     ✔️     |      -       | - |
+|  Scroll Down  |     -     |      ✔️     |     ✔️     |      ✔️       | ✔️ |
+|      Exit     |     ✔️     |      ✔️     |     ✔️     |      ✔️       | ✔️ |
 
 ### Image Gestures
 
