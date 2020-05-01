@@ -17,7 +17,7 @@ $ pip3 install pipenv
 
 ```sh
 $ cd /path/to/FingerTrackingCursorControl/src
-$ pipenv install -r requirements.txt
+$ pipenv install
 $ pipenv run python real-time.py
 ```
 
