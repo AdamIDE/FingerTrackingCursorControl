@@ -10,16 +10,16 @@ status = False
 hand_detection_method = 'yolo'
 
 if hand_detection_method is 'solo':
-    hand = SOLO(weights='weights/solo.h5', threshold=0.6)
+    hand = SOLO(weights='weights/solo.h5', threshold=0.8)
 elif hand_detection_method is 'yolo':
-    hand = YOLO(weights='weights/yolo.h5', threshold=0.6)
+    hand = YOLO(weights='weights/yolo.h5', threshold=0.9)
 else:
     assert False, "'" + hand_detection_method + "' hand detection does not exist. use either 'solo' or 'yolo' as hand detection method"
 
 fingertips = Fingertips(weights='weights/classes8.h5')
 
 cam = cv2.VideoCapture(0)
-print('Unified Gesture & Fingertips Detection')
+print('Finger Tracking Cursor Control')
 
 async def main():
     while True:
@@ -44,6 +44,8 @@ async def main():
                 pos[i] = pos[i] * width + tl[0]
                 pos[i + 1] = pos[i + 1] * height + tl[1]
             
+
+            # Main cursor control 
             status = await cursorControl(image, prob, pos)
             if status:
                 break # kills the program
@@ -67,6 +69,7 @@ async def main():
     cam.release()
     cv2.destroyAllWindows()
 
+# Starts the async event loop
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 loop.close()

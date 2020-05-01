@@ -15,7 +15,7 @@ def visualize(image, prob, key):
 
 
 if __name__ == '__main__':
-    img_name = 'ChuangyeguFirstfloor_Single_Four_color_335.jpg'
+    img_name = 'test.jpg'
     dir = '../EgoGesture Dataset/'
     img, prob, keys = label_generator(directory=dir, image_name=img_name, type='Test')
     visualize(img, prob, keys)

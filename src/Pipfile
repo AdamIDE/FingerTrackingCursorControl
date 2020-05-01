@@ -8,11 +8,13 @@ verify_ssl = true
 [packages]
 numpy = "*"
 matplotlib = "*"
-opencv-python = "*"
+opencv-python = "==4.2.0"
 pyautogui = "*"
 tensorflow-gpu = "==1.15.0"
 keras = "==2.2.4"
 imgaug = "==0.2.6"
+seaborn = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
