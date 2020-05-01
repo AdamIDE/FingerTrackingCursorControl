@@ -2,7 +2,7 @@
 
 Cursor control based on VGG-16 CNN from [MahmudulAlam](https://github.com/MahmudulAlam/Unified-Gesture-and-Fingertip-Detection)
 
-Repo for ECE471 project (Private; not for distrobution).
+Repo for ECE471 project (Private; not for distribution).
 
 
 ### Installation
